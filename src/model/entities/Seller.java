@@ -3,12 +3,16 @@ package model.entities;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Seller implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
+
+    // Creating formatter to handle SQL DATETIME format
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     private Integer id;
     private String name;
@@ -76,6 +80,10 @@ public class Seller implements Serializable {
         this.department = department;
     }
 
+    public static DateTimeFormatter getDateFormatter() {
+        return DATE_FORMATTER;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
@@ -96,6 +104,7 @@ public class Seller implements Serializable {
                 ", email='" + email + '\'' +
                 ", baseSalary=" + baseSalary +
                 ", dateOfBirth=" + dateOfBirth +
-                '}';
+                '}' +
+                ", department=" + department;
     }
 }
