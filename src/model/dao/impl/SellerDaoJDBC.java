@@ -13,7 +13,10 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SellerDaoJDBC implements SellerDao {
 
@@ -90,5 +93,45 @@ public class SellerDaoJDBC implements SellerDao {
     public List<Seller> findAll() {
         // TODO
         return null;
+    }
+
+    @Override
+    public List<Seller> findByDepartment(Department department) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            ps = conn.prepareStatement("SELECT seller.*, department.Name AS DepName "
+                    + "FROM seller "
+                    + "INNER JOIN department ON seller.DepartmentId = department.Id "
+                    + " WHERE DepartmentId = ? "
+                    + "ORDER BY Name"
+            );
+
+            ps.setInt(1, department.getId());
+            rs = ps.executeQuery();
+
+            List<Seller> sellers = new ArrayList<>();
+            Map<Integer, Department> departments = new HashMap<>();
+
+            while (rs.next()) {
+                Department dep = departments.get(rs.getInt("DepartmentId"));
+
+                if (dep == null) {
+                    dep = InstantiateDepartment(rs);
+                    departments.put(rs.getInt("DepartmentId"), dep);
+                }
+
+                Seller seller = InstantiateSeller(rs, dep);
+                sellers.add(seller);
+            }
+            return sellers;
+
+        }catch (SQLException e){
+            throw new DbException(e.getMessage());
+        }finally {
+            DB.closeStatement(ps);
+            DB.closeResultSet(rs);
+        }
     }
 }
