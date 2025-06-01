@@ -2,6 +2,7 @@ package application;
 
 import model.dao.DaoFactory;
 import model.dao.SellerDao;
+import model.dao.impl.SellerDaoJDBC;
 import model.entities.Department;
 import model.entities.Seller;
 import java.util.List;
@@ -30,11 +31,19 @@ public class Program {
         }
 
 
-        System.out.println("=== TEST 3: testing insert ===");
+        System.out.println("=== TEST 4: testing insert ===");
         /*
         Seller newSeller = new Seller(null, "Greg", "gregmail@gmail.com", 4300.00, LocalDate.of(2025, 6, 1), dep );
         sellerDao.insert(newSeller);
         System.out.println("Inserted!, new ID: " + newSeller.getId());
+        */
+
+        System.out.println("=== TEST 5: testing update ===");
+        /*
+        seller = sellerDao.findById(1);
+        seller.setName("Martha");
+        sellerDao.update(seller);
+        System.out.println("Update completed!");
         */
 
     }
