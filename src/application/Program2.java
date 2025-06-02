@@ -26,11 +26,15 @@ public class Program2 {
          */
 
         System.out.println("=== TEST 3: testing delete ===");
+        /*
         System.out.println("insert ID to delete: ");
         int id = sc.nextInt();
         departmentDao.deleteById(id);
         System.out.println("Department deleted successfully!");
+        */
 
-        
+        System.out.println("=== TEST 4: testing findById ===");
+        Department newDepartment = departmentDao.findById(6);
+        System.out.println(newDepartment);
     }
 }
