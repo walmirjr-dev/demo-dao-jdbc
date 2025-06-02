@@ -15,8 +15,16 @@ public class Program2 {
         /*
         Department department = new Department(null, "Fishing");
         departmentDao.insert(department);
-        System.out.println("Department inserted!!");
+        System.out.println("Department inserted successfully!");
+        */
+
+        System.out.println("=== TEST 2: testing update ===");
+        /*
+        department.setName("Cars");
+        departmentDao.update(department);
+        System.out.println("Department updated successfully!");
          */
+
 
     }
 }
