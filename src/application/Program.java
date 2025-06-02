@@ -6,10 +6,12 @@ import model.dao.impl.SellerDaoJDBC;
 import model.entities.Department;
 import model.entities.Seller;
 import java.util.List;
+import java.util.Scanner;
 
 public class Program {
     public static void main(String[] args) {
 
+        Scanner sc = new Scanner(System.in);
         SellerDao sellerDao = DaoFactory.createSellerDao();
 
         System.out.println("=== TEST 1: testing FindById ===");
@@ -45,6 +47,13 @@ public class Program {
         sellerDao.update(seller);
         System.out.println("Update completed!");
         */
+
+        System.out.println("=== TEST 6: testing delete ===");
+        System.out.println("insert ID to delete: ");
+        int id = sc.nextInt();
+
+        sellerDao.deleteById(id);
+        System.out.println("Delete completed");
 
     }
 }
