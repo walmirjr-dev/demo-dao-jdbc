@@ -36,7 +36,7 @@ public class DepartmentDaoJDBC implements DepartmentDao {
                 }
                 DB.closeResultSet(rs);
             }else {
-                throw new DbException("Erro ao inserir o registro");
+                throw new DbException("Error inserting department");
             }
 
         }catch (SQLException e){
@@ -71,10 +71,15 @@ public class DepartmentDaoJDBC implements DepartmentDao {
         PreparedStatement ps = null;
 
         try {
-            ps = conn.prepareStatement("DELETE FROM department WHERE Id = ?");
+            ps = conn.prepareStatement("DELETE FROM department WHERE Id = ?",
+                    PreparedStatement.RETURN_GENERATED_KEYS);
 
             ps.setInt(1, id);
-            ps.executeUpdate();
+            int rowsAffected = ps.executeUpdate();
+
+            if (rowsAffected == 0) {
+                throw new DbException("No depertment found with id " + id);
+            }
 
         }catch (SQLException e){
             throw new DbException(e.getMessage());
